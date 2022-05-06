@@ -1,4 +1,5 @@
-
+import Arweave from "arweave";
+export const arweave = Arweave.init({})
 export const isWellFormattedAddress = (input) => {
   const re = /^[a-zA-Z0-9_]{43}$/;
   return re.test(input);
@@ -15,6 +16,7 @@ export const createPostInfo = (node) => {
     length: node.data.size,
     timestamp: timestamp,
   }
+  postInfo.request = arweave.api.get(`/${node.id}`, { timeout: 10000 }).catch(console.log)
   return postInfo;
 }
 
